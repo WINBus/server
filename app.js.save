@@ -1,0 +1,536 @@
+/*eslint-env node*/
+/*eslint-env node*/
+
+//------------------------------------------------------------------------------
+// node.js starter application for Bluemix
+//------------------------------------------------------------------------------
+
+// This application uses express as its web server
+// for more info, see: http://expressjs.com
+https = require('https');
+var express = require('express');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('tracker.db');
+const s = require('net').Socket();
+const net = require('net');
+const fs = require('fs');
+var ansfer;
+var lat1=0;
+var lon1=0;
+var de = new Date();
+var cfenv = require('cfenv');
+
+
+net.createServer(function (socket) {
+   
+var V = data.search("V");
+var N = data.search("N");
+var E = data.search("E");
+var B = data.search("B");
+
+var mac = data.slice(1,B);
+
+var lat1 = data.slice(V+1,N);//lat get 
+var lng =  parseFloat(lat1.slice(0,2))+ parseFloat(lat1.slice(2)/60);
+
+var lng1 = data.slice(N+2,E);//lng get
+var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
+}).listen(80,'192.168.1.3');
+
+// tcp
+
+
+if (!fs.existsSync("./tracker.db")) {
+    var db = new sqlite3.Database('tracker.db'); //creat coll database
+};
+// create a new express server
+
+
+
+var app = express();
+https.createServer({
+key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+}, app).listen(8080,'192.168.1.3')
+app.get('/',function(req,res){
+	
+	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lon)=='undefined'){
+		
+		throw (err);
+	}
+
+		 lat1 = req.query.lat;
+         lon1= req.query.lon; 
+         var ip = req.headers['x-forwarded-for'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         req.connection.socket.remoteAddress;  
+         console.log( ip);
+         console.log("3000  "+lat1 +" "+lon1);
+         db.serialize(function () { // open database
+         db.run("CREATE TABLE if not exists user (name TEXT, lon TEXT,lat TEXT, dt TEXT)");
+         db.run(`UPDATE  user SET lon =${lon1}, lat=${lat1}, dt =current_timestamp WHERE name = ?`, `${ip}`);
+      });
+		}
+	catch(err){
+	res.sendfile("public/index.html"); };
+
+	
+})
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/public'));
+
+
+app.post('/', function(req,res){
+
+
+ db.all("SELECT name,lon, lat,dt  FROM user", function(err, rows) {
+        rows.forEach(function (row) {
+        ansfer ={ name : row.name, lon : row.lon, lat : row.lat, dt : row.dt};
+            
+        })
+	});
+res.json(ansfer);
+});
+// tracker_port.get('/', function (req, res) { //start html
+	
+
+// });
+
+
+
+// get the app environment from Cloud Foundry
+
+
+// start server on the specified port and binding host
+
+
+/*eslint-env node*/
+
+//------------------------------------------------------------------------------
+// node.js starter application for Bluemix
+//------------------------------------------------------------------------------
+
+// This application uses express as its web server
+// for more info, see: http://expressjs.com
+https = require('https');
+var express = require('express');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('tracker.db');
+const s = require('net').Socket();
+const net = require('net');
+const fs = require('fs');
+var ansfer;
+var lat1=0;
+var lon1=0;
+var de = new Date();
+var cfenv = require('cfenv');
+
+
+net.createServer(function (socket) {
+   
+var V = data.search("V");
+var N = data.search("N");
+var E = data.search("E");
+var B = data.search("B");
+
+var mac = data.slice(1,B);
+
+var lat1 = data.slice(V+1,N);//lat get 
+var lng =  parseFloat(lat1.slice(0,2))+ parseFloat(lat1.slice(2)/60);
+
+var lng1 = data.slice(N+2,E);//lng get
+var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
+}).listen(80,'192.168.1.3');
+
+// tcp
+
+
+if (!fs.existsSync("./tracker.db")) {
+    var db = new sqlite3.Database('tracker.db'); //creat coll database
+};
+// create a new express server
+
+
+
+var app = express();
+https.createServer({
+key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+}, app).listen(8080,'192.168.1.3')
+app.get('/',function(req,res){
+	
+	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lon)=='undefined'){
+		
+		throw (err);
+	}
+
+		 lat1 = req.query.lat;
+         lon1= req.query.lon; 
+         var ip = req.headers['x-forwarded-for'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         req.connection.socket.remoteAddress;  
+         console.log( ip);
+         console.log("3000  "+lat1 +" "+lon1);
+         db.serialize(function () { // open database
+         db.run("CREATE TABLE if not exists user (name TEXT, lon TEXT,lat TEXT, dt TEXT)");
+         db.run(`UPDATE  user SET lon =${lon1}, lat=${lat1}, dt =current_timestamp WHERE name = ?`, `${ip}`);
+      });
+		}
+	catch(err){
+	res.sendfile("public/index.html"); };
+
+	
+})
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/public'));
+
+
+app.post('/', function(req,res){
+
+
+ db.all("SELECT name,lon, lat,dt  FROM user", function(err, rows) {
+        rows.forEach(function (row) {
+        ansfer ={ name : row.name, lon : row.lon, lat : row.lat, dt : row.dt};
+            
+        })
+	});
+res.json(ansfer);
+});
+// tracker_port.get('/', function (req, res) { //start html
+	
+
+// });
+
+
+
+// get the app environment from Cloud Foundry
+
+
+// start server on the specified port and binding host
+
+
+/*eslint-env node*/
+
+//------------------------------------------------------------------------------
+// node.js starter application for Bluemix
+//------------------------------------------------------------------------------
+
+// This application uses express as its web server
+// for more info, see: http://expressjs.com
+https = require('https');
+var express = require('express');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('tracker.db');
+const s = require('net').Socket();
+const net = require('net');
+const fs = require('fs');
+var ansfer;
+var lat1=0;
+var lon1=0;
+var de = new Date();
+var cfenv = require('cfenv');
+
+
+net.createServer(function (socket) {
+   
+var V = data.search("V");
+var N = data.search("N");
+var E = data.search("E");
+var B = data.search("B");
+
+var mac = data.slice(1,B);
+
+var lat1 = data.slice(V+1,N);//lat get 
+var lng =  parseFloat(lat1.slice(0,2))+ parseFloat(lat1.slice(2)/60);
+
+var lng1 = data.slice(N+2,E);//lng get
+var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
+}).listen(80,'192.168.1.3');
+
+// tcp
+
+
+if (!fs.existsSync("./tracker.db")) {
+    var db = new sqlite3.Database('tracker.db'); //creat coll database
+};
+// create a new express server
+
+
+
+var app = express();
+https.createServer({
+key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+}, app).listen(8080,'192.168.1.3')
+app.get('/',function(req,res){
+	
+	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lon)=='undefined'){
+		
+		throw (err);
+	}
+
+		 lat1 = req.query.lat;
+         lon1= req.query.lon; 
+         var ip = req.headers['x-forwarded-for'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         req.connection.socket.remoteAddress;  
+         console.log( ip);
+         console.log("3000  "+lat1 +" "+lon1);
+         db.serialize(function () { // open database
+         db.run("CREATE TABLE if not exists user (name TEXT, lon TEXT,lat TEXT, dt TEXT)");
+         db.run(`UPDATE  user SET lon =${lon1}, lat=${lat1}, dt =current_timestamp WHERE name = ?`, `${ip}`);
+      });
+		}
+	catch(err){
+	res.sendfile("public/index.html"); };
+
+	
+})
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/public'));
+
+
+app.post('/', function(req,res){
+
+
+ db.all("SELECT name,lon, lat,dt  FROM user", function(err, rows) {
+        rows.forEach(function (row) {
+        ansfer ={ name : row.name, lon : row.lon, lat : row.lat, dt : row.dt};
+            
+        })
+	});
+res.json(ansfer);
+});
+// tracker_port.get('/', function (req, res) { //start html
+	
+
+// });
+
+
+
+// get the app environment from Cloud Foundry
+
+
+// start server on the specified port and binding host
+
+
+/*eslint-env node*/
+
+//------------------------------------------------------------------------------
+// node.js starter application for Bluemix
+//------------------------------------------------------------------------------
+
+// This application uses express as its web server
+// for more info, see: http://expressjs.com
+https = require('https');
+var express = require('express');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('tracker.db');
+const s = require('net').Socket();
+const net = require('net');
+const fs = require('fs');
+var ansfer;
+var lat1=0;
+var lon1=0;
+var de = new Date();
+var cfenv = require('cfenv');
+
+
+net.createServer(function (socket) {
+   
+var V = data.search("V");
+var N = data.search("N");
+var E = data.search("E");
+var B = data.search("B");
+
+var mac = data.slice(1,B);
+
+var lat1 = data.slice(V+1,N);//lat get 
+var lng =  parseFloat(lat1.slice(0,2))+ parseFloat(lat1.slice(2)/60);
+
+var lng1 = data.slice(N+2,E);//lng get
+var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
+}).listen(80,'192.168.1.3');
+
+// tcp
+
+
+if (!fs.existsSync("./tracker.db")) {
+    var db = new sqlite3.Database('tracker.db'); //creat coll database
+};
+// create a new express server
+
+
+
+var app = express();
+https.createServer({
+key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+}, app).listen(8080,'192.168.1.3')
+app.get('/',function(req,res){
+	
+	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lon)=='undefined'){
+		
+		throw (err);
+	}
+
+		 lat1 = req.query.lat;
+         lon1= req.query.lon; 
+         var ip = req.headers['x-forwarded-for'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         req.connection.socket.remoteAddress;  
+         console.log( ip);
+         console.log("3000  "+lat1 +" "+lon1);
+         db.serialize(function () { // open database
+         db.run("CREATE TABLE if not exists user (name TEXT, lon TEXT,lat TEXT, dt TEXT)");
+         db.run(`UPDATE  user SET lon =${lon1}, lat=${lat1}, dt =current_timestamp WHERE name = ?`, `${ip}`);
+      });
+		}
+	catch(err){
+	res.sendfile("public/index.html"); };
+
+	
+})
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/public'));
+
+
+app.post('/', function(req,res){
+
+
+ db.all("SELECT name,lon, lat,dt  FROM user", function(err, rows) {
+        rows.forEach(function (row) {
+        ansfer ={ name : row.name, lon : row.lon, lat : row.lat, dt : row.dt};
+            
+        })
+	});
+res.json(ansfer);
+});
+// tracker_port.get('/', function (req, res) { //start html
+	
+
+// });
+
+
+
+// get the app environment from Cloud Foundry
+
+
+// start server on the specified port and binding host
+
+
+
+//------------------------------------------------------------------------------
+// node.js starter application for Bluemix
+//------------------------------------------------------------------------------
+
+// This application uses express as its web server
+// for more info, see: http://expressjs.com
+https = require('https');
+var express = require('express');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('tracker.db');
+const s = require('net').Socket();
+const net = require('net');
+const fs = require('fs');
+var ansfer;
+var lat1=0;
+var lon1=0;
+var de = new Date();
+var cfenv = require('cfenv');
+
+
+net.createServer(function (socket) {
+   
+var V = data.search("V");
+var N = data.search("N");
+var E = data.search("E");
+var B = data.search("B");
+
+var mac = data.slice(1,B);
+
+var lat1 = data.slice(V+1,N);//lat get 
+var lng =  parseFloat(lat1.slice(0,2))+ parseFloat(lat1.slice(2)/60);
+
+var lng1 = data.slice(N+2,E);//lng get
+var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
+}).listen(80,'192.168.1.3');
+
+// tcp
+
+
+if (!fs.existsSync("./tracker.db")) {
+    var db = new sqlite3.Database('tracker.db'); //creat coll database
+};
+// create a new express server
+
+
+
+var app = express();
+https.createServer({
+key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+}, app).listen(8080,'192.168.1.3')
+app.get('/',function(req,res){
+	
+	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lon)=='undefined'){
+		
+		throw (err);
+	}
+
+		 lat1 = req.query.lat;
+         lon1= req.query.lon; 
+         var ip = req.headers['x-forwarded-for'] || 
+         req.connection.remoteAddress || 
+         req.socket.remoteAddress ||
+         req.connection.socket.remoteAddress;  
+         console.log( ip);
+         console.log("3000  "+lat1 +" "+lon1);
+         db.serialize(function () { // open database
+         db.run("CREATE TABLE if not exists user (name TEXT, lon TEXT,lat TEXT, dt TEXT)");
+         db.run(`UPDATE  user SET lon =${lon1}, lat=${lat1}, dt =current_timestamp WHERE name = ?`, `${ip}`);
+      });
+		}
+	catch(err){
+	res.sendfile("public/index.html"); };
+
+	
+})
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/public'));
+
+
+app.post('/', function(req,res){
+
+
+ db.all("SELECT name,lon, lat,dt  FROM user", function(err, rows) {
+        rows.forEach(function (row) {
+        ansfer ={ name : row.name, lon : row.lon, lat : row.lat, dt : row.dt};
+            
+        })
+	});
+res.json(ansfer);
+});
+// tracker_port.get('/', function (req, res) { //start html
+	
+
+// });
+
+
+
+// get the app environment from Cloud Foundry
+
+
+// start server on the specified port and binding host
+
+
+var lat1=0;

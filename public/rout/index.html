@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+    <title>Marker animations with <code>setTimeout()</code></title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+      #floating-panel {
+        margin-left: -52px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel">
+    <button>Get External Content</button>
+    <button id="drop" onclick="drop()">Drop Markers</button>
+     </div>
+    <div id="map"></div>
+    <script>
+var neighborhoods = [];
+var a={};
+// If you're adding a number of markers, you may want to drop them on the map
+// consecutively rather than all at once. This example shows how to use
+// window.setTimeout() to space your markers' animation.
+ function initGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, fail);
+            }
+            else {
+                alert("Sorry, your browser does not support geolocation services.");
+            }
+        }
+        var map;
+
+
+// function myAjax() {
+    //         xmlhttp = new XMLHttpRequest();
+    //         var url = "https://localhost:3000/";
+    //         xmlhttp.open("POST", url, true);
+    //         //Black magic paragraph
+    //         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //for headers 
+    //         xmlhttp.onreadystatechange = function () {
+    //             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    //                 console.log('responseText:' + xmlhttp.responseText);
+    //         try {
+    //             var data = JSON.parse(xmlhttp.responseText);
+               
+    //             neighborhoods =[{lat : parseFloat(data.lat), lng : parseFloat(data.lon)}];
+    //             console.log(neighborhoods);
+                
+    //         } catch(err) {
+    //             console.log(err.message + " in " + xmlhttp.responseText);
+    //             return;
+    //         }
+            
+    //     }
+    // };
+                    
+        
+       // xmlhttp.send("bb");}
+    var json = [
+  {lat: 40.202682, lng: 44.522948},
+  {lat: 40.199543, lng: 44.520314},
+  {lat: 52.497, lng: 13.396},
+  {lat: 52.517, lng: 13.394}
+];  // var json = {numberId: "1", companyId : "531"};
+
+$("button").click(function(){
+
+$.ajax({
+ type: "POST",
+ url: "https://localhost:3000/",
+ data: json,
+ contentType: "application/json; charset=utf-8",
+ dataType: "json",
+ success: function(data) {
+  
+ 
+ neighborhoods =[{lat: 40.2022165, lng: 44.4914177}];
+ console.log(data);
+ console.log(neighborhoods);
+ }});
+});
+       // setInterval(myAjax, 1000);
+//var json1 = JSON.parse(a);
+//console.log(json1);
+var image = {
+    url: 'images/flags .png'
+    , };
+var markers = [];
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+      center: {lat: 40.177606, lng: 44.512666}
+  });
+
+  var infoWindow = new google.maps.InfoWindow({map: map});
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Ես այստեղ եմ...');
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+
+
+
+function drop() {
+  clearMarkers();
+  for (var i = 0; i < neighborhoods.length; i++) {
+    addMarkerWithTimeout(neighborhoods[i], i * 200);
+  }
+}
+
+function addMarkerWithTimeout(position, timeout) {
+  window.setTimeout(function() {
+    markers.push(new google.maps.Marker({
+      position: position,
+      map: map,
+        icon: image,
+      animation: google.maps.Animation.DROP
+    }));
+  }, timeout);
+}
+
+function clearMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
+}
+
+    </script>
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1DVOi-DZw7Om-EYUG66DUQs9z0jqPm5Q&callback=initMap"
+        ></script>
+  </body>
+</html>

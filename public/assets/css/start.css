@@ -1,0 +1,146 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    background: url("../media/bg.jpg") no-repeat fixed;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+     -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none; 
+            user-select: none; 
+}
+
+@media (max-width: 600px) {
+  body {
+    background-size: 400% 100%; 
+  }
+}
+@media (max-width: 600px) {
+.my{
+   position: relative;
+  top: 50%;
+  transform: translateY(5%); 
+}
+}
+
+.contain{
+    position: absolute;
+    background: rgba(161,118,49, .5);
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    clear: both;
+}
+
+.contain h2{
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    text-shadow: 1px 2px 4px rgba(0,0,0,.4);
+    font-family: 'Times New Roman', serif;
+    font-weight: 400;
+    background: rgba(66,54,232, 0);
+    padding: 10px;
+    pointer-events: none;pointer-events: none;
+}
+
+.contain p{
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    text-shadow: 1px 2px 4px rgba(0,0,0,.4);
+    font-family: 'Times New Roman', serif;
+    pointer-events: none;
+    
+ 
+}
+
+.logo{
+    position: relative;
+    width: 100%;
+}
+
+.logo img{
+    display: block;
+    width: 550px;
+    max-width: 80%;
+    margin: 2.3% auto;
+    opacity: .8;
+}
+
+h3{
+    opacity: .9;
+    width: 100%;
+    padding: 18px 0;
+    border: 0;
+    background: rgba(255,255,255,.6);
+    color: rgba(211,172,68, 1);
+    font-size: 26px;
+    text-align: center;
+    margin: 40px auto;
+    font-weight: 400;
+    font-size: 2em;
+    pointer-events: none; 
+}
+
+
+h3:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+input::-webkit-input-placeholder{
+    color: rgba(211,172,68, 1);
+}
+
+button{
+    display: block;
+    margin: 30px auto;
+    margin-bottom: 20px;
+    width: 140px;
+    height: 140px;
+    max-height: 90%;
+    border-radius: 50%;
+    background: rgba(211,172,68, 1);
+    border: 3px solid rgba(211,172,68, 1);
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+       clear: both;
+    overflow: hidden;
+}
+
+button:hover{
+    background: transparent;
+    transition: ease 0.5s;
+    border: 3px solid rgba(211,172,68, 1);
+    color: #fff;
+    
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+footer{
+    
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+   padding: 5px;
+    margin-top: 25%;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
+background: #000;
+
+}
