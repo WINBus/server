@@ -96,7 +96,7 @@ app.get('/',function(req,res){
 
 
 
-app.listen(3001,'192.168.1.188');
+app.listen(3001,'192.168.1.231');
 
 
 
@@ -113,7 +113,7 @@ https.createServer({
  
 key: fs.readFileSync('sslcert//example.com.key', 'utf8'),
 cert: fs.readFileSync('sslcert/example.com.crt', 'utf8'),
-}, browser).listen(3000,'192.168.1.188')
+}, browser).listen(3000,'192.168.1.231')
 
 browser.post('/', function(req,res){
  db.all(`SELECT name,lng, lat,dt  FROM user WHERE num=${req.body.bus}`, function(err, rows) {

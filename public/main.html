@@ -4,6 +4,7 @@
     <title>Marker animations with <code>setTimeout()</code></title>
     <meta charset="utf-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="./jsons/a.json"></script>
 
    <script type="text/javascript">
    $(document).ready(function() {
@@ -67,6 +68,9 @@
     <div id="map"></div>
     <script>
     var x = 0;
+    var flightPath;
+    var flightPlanCoordinates = bus;
+    console.log(flightPlanCoordinates);
   var neighborhoods = [];
 // If you're adding a number of markers, you may want to drop them on the map
 // consecutively rather than all at once. This example shows how to use
@@ -88,7 +92,7 @@
             x = document.getElementById("myText").value;};
             
             xmlhttp = new XMLHttpRequest();
-            var url = "https://195.250.88.211:3000/";
+            var url = "https://192.168.1.231:3000/";
             xmlhttp.open("POST", url, true);
             //Black magic paragraph
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //for headers 
@@ -97,10 +101,13 @@
                 try {
             	
                 var data = JSON.parse(xmlhttp.responseText);
+                console.log(data);
                 for(let o= 0; o<data.length; o++){                
                 neighborhoods[o]=({lat : data[o].lat, lng : data[o].lng});
               }
+              
              map.setCenter(position);
+
                 
             } catch(err) {
              
@@ -116,12 +123,7 @@
         xmlhttp.send(`bus=${x}`);}
         
         setInterval(myAjax, 500);
-/*var aa = [
-  {lat: 40.202682, lng: 44.522948},
-  {lat: 40.199543, lng: 44.520314},
-  {lat: 52.497, lng: 13.396},
-  {lat: 52.517, lng: 13.394}
-];*/
+
 
 var image = {
     url: 'images/flags .png'
@@ -162,11 +164,33 @@ disableDefaultUI: true,
     // Browser doesn't support Geolocation
     handleLocationError(false,map.getCenter());
   }
+
+
+      
+          flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+
+
 }
 
 
 
+
+
+
+
+
+
+
+
 function drop() {
+	flightPath.setMap(map);
   clearMarkers();
   for (var i = 0; i < neighborhoods.length; i++) {
     addMarkerWithTimeout(neighborhoods[i], i * 200);
@@ -193,8 +217,7 @@ function clearMarkers() {
     markers[i].setMap(null);
   }
   markers = [];
-}
-
+}  
     </script>
     <div class="foot">
         <p>&copy wimBus 2017 | Powered by <a href="#">#SimpleGuys</a></p>
