@@ -67,10 +67,20 @@
     </div>
     <div id="map"></div>
     <script>
+<<<<<<< HEAD
     var x ;
     var onse=0;
     var isone=0;
     var intervalObj;
+=======
+<<<<<<< HEAD
+    var x ;
+    var isone=0;
+    var intervalObj;
+=======
+    var x = 0;
+>>>>>>> origin/master
+>>>>>>> origin/master
     var flightPath;
     var flightPlanCoordinates = bus;
     console.log(flightPlanCoordinates);
@@ -107,11 +117,24 @@
                 console.log(data);
                 for(let o= 0; o<data.length; o++){                
                 neighborhoods[o]=({lat : data[o].lat, lng : data[o].lng});
+<<<<<<< HEAD
                
               }
                drop();
              map.setCenter(position);
             // 
+=======
+                
+              }
+              
+<<<<<<< HEAD
+             //map.setCenter(position);
+            // 
+=======
+             map.setCenter(position);
+
+>>>>>>> origin/master
+>>>>>>> origin/master
                 
             } catch(err) {
              
@@ -124,11 +147,23 @@
     
         for(var a=0; a<neighborhoods.length;a++){
         neighborhoods[a] = 0;}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
         xmlhttp.send(`bus=${x}`);
         clearInterval(intervalObj);
     }
        
        
+<<<<<<< HEAD
+=======
+=======
+        xmlhttp.send(`bus=${x}`);}
+        
+        setInterval(myAjax, 500);
+>>>>>>> origin/master
+>>>>>>> origin/master
 
 
 var image = {
@@ -196,10 +231,18 @@ disableDefaultUI: true,
 
 
 function drop() {
+<<<<<<< HEAD
 	isone++;
 	if(isone == 1){var time = setTimeout(drop, 1000);}
 	intervalObj = setInterval(myAjax, 1000)
 	
+=======
+<<<<<<< HEAD
+	if(isone == 0){setTimeout(drop, 500); isone++}
+	intervalObj = setInterval(myAjax, 500);
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
 	flightPath.setMap(map);
   clearMarkers();
   for (var i = 0; i < neighborhoods.length; i++) {
