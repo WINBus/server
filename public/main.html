@@ -4,9 +4,13 @@
     <title>Marker animations with <code>setTimeout()</code></title>
     <meta charset="utf-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="./jsons/bus34.json"></script>
     <script type="text/javascript" src="./jsons/bus36.json"></script>
     <script type="text/javascript" src="./jsons/bus49.json"></script>
+=======
+    <script type="text/javascript" src="./jsons/a.json"></script>
+>>>>>>> origin/master
 
    <script type="text/javascript">
    $(document).ready(function() {
@@ -69,15 +73,34 @@
     </div>
     <div id="map"></div>
     <script>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
     var x ;
     var onse=0;
     var isone=0;
     var intervalObj;
+<<<<<<< HEAD
     var flightPath;
     var flightPlanCoordinates_49 = bus_49;
     var flightPlanCoordinates_34 = bus_34;
     var flightPlanCoordinates_36 = bus_36;
 
+=======
+=======
+<<<<<<< HEAD
+    var x ;
+    var isone=0;
+    var intervalObj;
+=======
+    var x = 0;
+>>>>>>> origin/master
+>>>>>>> origin/master
+    var flightPath;
+    var flightPlanCoordinates = bus;
+    console.log(flightPlanCoordinates);
+>>>>>>> origin/master
   var neighborhoods = [];
 // If you're adding a number of markers, you may want to drop them on the map
 // consecutively rather than all at once. This example shows how to use
@@ -111,11 +134,30 @@
                 console.log(data);
                 for(let o= 0; o<data.length; o++){                
                 neighborhoods[o]=({lat : data[o].lat, lng : data[o].lng});
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
                
               }
                drop();
              map.setCenter(position);
             // 
+<<<<<<< HEAD
+=======
+=======
+                
+              }
+              
+<<<<<<< HEAD
+             //map.setCenter(position);
+            // 
+=======
+             map.setCenter(position);
+
+>>>>>>> origin/master
+>>>>>>> origin/master
+>>>>>>> origin/master
                 
             } catch(err) {
              
@@ -128,11 +170,29 @@
     
         for(var a=0; a<neighborhoods.length;a++){
         neighborhoods[a] = 0;}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/master
+>>>>>>> origin/master
         xmlhttp.send(`bus=${x}`);
         clearInterval(intervalObj);
     }
        
        
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+        xmlhttp.send(`bus=${x}`);}
+        
+        setInterval(myAjax, 500);
+>>>>>>> origin/master
+>>>>>>> origin/master
+>>>>>>> origin/master
 
 
 var image = {
@@ -177,14 +237,20 @@ disableDefaultUI: true,
 
 
       
+<<<<<<< HEAD
           flightPath_49 = new google.maps.Polyline({
           path: flightPlanCoordinates_49,
+=======
+          flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+>>>>>>> origin/master
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
 
+<<<<<<< HEAD
           flightPath_36 = new google.maps.Polyline({
           path: flightPlanCoordinates_36,
           geodesic: true,
@@ -199,6 +265,9 @@ disableDefaultUI: true,
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
+=======
+
+>>>>>>> origin/master
 
 }
 
@@ -210,6 +279,7 @@ disableDefaultUI: true,
 
 
 
+<<<<<<< HEAD
 function drop() {
 	switch(x) {  
   case '49': {flightPath_36.setMap(null);flightPath_34.setMap(null);flightPath_49.setMap(map); break;}
@@ -217,11 +287,28 @@ function drop() {
   case '34': {flightPath_36.setMap(null);flightPath_49.setMap(null);flightPath_34.setMap(map); break;}
 }
    ;
+=======
+
+
+function drop() {
+<<<<<<< HEAD
+>>>>>>> origin/master
 	isone++;
 	if(isone == 1){var time = setTimeout(drop, 1000);}
 	intervalObj = setInterval(myAjax, 1000)
 	
+<<<<<<< HEAD
 	
+=======
+=======
+<<<<<<< HEAD
+	if(isone == 0){setTimeout(drop, 500); isone++}
+	intervalObj = setInterval(myAjax, 500);
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
+	flightPath.setMap(map);
+>>>>>>> origin/master
   clearMarkers();
   for (var i = 0; i < neighborhoods.length; i++) {
     addMarkerWithTimeout(neighborhoods[i]);
