@@ -21,7 +21,6 @@ var lat1=0;
 var lng1=0;
 var de = new Date();
 var cfenv = require('cfenv');
-var browser = express();
 
 // if (!fs.existsSync("./tracker.db")) {
 //     var db = new sqlite3.Database('tracker.db'); //creat coll database
@@ -68,9 +67,9 @@ var lat =  parseFloat(lng1.slice(0,2))+ parseFloat(lng1.slice(2)/60);
 // create a new express server
 
 
-/*
-var app = express();
 
+var app = express();
+var browser = express();
 app.get('/',function(req,res){
 	try { if(typeof(req.query.lat)=='undefined' && typeof(req.query.lng)=='undefined'){
         throw (err);
@@ -97,9 +96,9 @@ app.get('/',function(req,res){
 
 
 
-//app.listen(3001,'192.168.1.231');
+app.listen(3001,'192.168.1.188');
 
-*/
+
 
 //browser.use(bodyParser.json()); // for parsing application/json
 browser.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -110,7 +109,13 @@ browser.use(bodyParser.urlencoded({ extended: true })); // for parsing applicati
 // for browser
 browser.use(express.static(__dirname + '/public'));
 //browser.use(express.bodyParser());
-browser.post('/', function(req,res){console.log(req.body.bus);
+https.createServer({
+ 
+key: fs.readFileSync('sslcert//example.com.key', 'utf8'),
+cert: fs.readFileSync('sslcert/example.com.crt', 'utf8'),
+}, browser).listen(3000,'192.168.1.188')
+
+browser.post('/', function(req,res){
  db.all(`SELECT name,lng, lat,dt  FROM user WHERE num=${req.body.bus}`, function(err, rows) {
   	                                           //dzelu shat bana uxarkum petka menak lng u lat databasum annunner@ poxvi 
         rows.forEach(function (row) {
@@ -124,13 +129,8 @@ browser.post('/', function(req,res){console.log(req.body.bus);
  res.json(ansfer);
  ansfer = [];
 });
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
-var appEnv1 = cfenv.getAppEnv();
-browser.listen(appEnv.port,'0.0.0.0',function() {
-  // print a message when the server starts listening
-console.log("server starting on " + appEnv.url);
-});
-
+app.get('/',function(req,res){
+res.sendfile("public/main.html");
+})
 
 
